@@ -7,18 +7,21 @@ body {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    padding: 1rem;
 }
 
 .interface {
-    width: 400px;
-    height: 250px;
-    border-radius: 5px;
+    width: 92%;
+    height: 92%;
+    border-radius: 16px;
     background: #2a2a40;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
