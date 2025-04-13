@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Focus Timer</title>
     <link rel="stylesheet" href="popup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Focus Timer</h1>
-    <div id="timer">25:00</div>
-    <div class="buttons">
-        <button id="start">Start</button>
-        <button id="pause">Pause</button>
-        <button id="reset">Reset</button>
+    <div class="interface">
+        <h1>Focus Timer</h1>
+        <div id="timer">25:00</div>
+        <div class="buttons-holder">
+            <div class="btn-left">
+                <button id="start" class="btn">Start</button>
+            </div>
+            <div class="btn-right">
+                <button id="pause" class="btn">Pause</button>
+                <button id="reset" class="btn">Reset</button>
+            </div>
+        </div>
+        <script src="popup.js"></script>
     </div>
-    <script src="popup.js"></script>
 </body>
 </html>
