@@ -1,8 +1,37 @@
+:root {
+    --bg: #f2f2f2;
+    --card-bg: #ffffff;
+    --text: #1e1e1e;
+    --timer-text: #2f2f2f;
+
+    --btn-start: #2f80ed;
+    --btn-pause: #9b51e0;
+    --btn-reset: #bdbdbd;
+
+    --btn-text: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body.dark {
+    --bg: #1e1e2f;
+    --card-bg: #2a2a40;
+    --text: #f0f0f5;
+    --timer-text: #ffffff;
+
+    --btn-start: #2f80ed;
+    --btn-pause: #9b51e0;
+    --btn-reset: #828282;
+
+    --btn-text: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
 body {
     width: 480px;
     height: 300px;
     font-family: "Roboto", "Inter", sans-serif;
-    background: #1e1e2f;
+    background: var(--bg);
+    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,23 +43,23 @@ body {
     width: 92%;
     height: 92%;
     border-radius: 16px;
-    background: #2a2a40;
+    background: var(--card-bg);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
 h1 {
-    color: #f0f0f5;
+    color: var(--text);
     padding-bottom: 1rem;
 }
 
 #timer {
-    color: white;
+    color: var(--timer-text);
     text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
     font-size: 3rem;
 }
@@ -53,7 +82,7 @@ h1 {
 }
 
 .btn {
-    color: white;
+    color: var(--btn-text);
     border-radius: 12px;
     border: none;
     transition: filter 0.2s ease, transform 0.1s ease;
@@ -70,7 +99,7 @@ h1 {
 }
 
 #start {
-    background: #2f80ed;
+    background: var(--btn-start);
     font-size: 1.25rem;
     padding: 0.6em 1.4em;
 }
@@ -81,11 +110,11 @@ h1 {
 }
 
 #pause {
-    background: #9b51e0;
+    background: var(--btn-pause);
 }
 
 #reset {
-    background: #828282;
+    background: var(--btn-reset);
 }
 
 .theme-toggle {

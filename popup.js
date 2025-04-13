@@ -2,6 +2,11 @@ const timer = document.getElementById("timer");
 const start = document.getElementById("start");
 const pause = document.getElementById("pause");
 const reset = document.getElementById("reset");
+const modeToggle = document.getElementById("modeToggle");
+
+modeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+});
 
 let isCountdownInProgress = false;
 let count = 1500;
