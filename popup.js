@@ -21,7 +21,9 @@ start.addEventListener("click", () => {
 
             if (timeBetween < 0) {
                 clearInterval(countdown);
+                count = 1500;
                 timer.textContent = "25:00"
+                isCountdownInProgress = false;
             }
         },1000);
 
@@ -36,6 +38,7 @@ pause.addEventListener("click", () => {
 
 reset.addEventListener("click", () => {
     clearInterval(countdown);
+    count = 1500;
     timer.textContent = "25:00"
     isCountdownInProgress = false;
 });
