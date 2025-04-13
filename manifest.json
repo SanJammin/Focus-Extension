@@ -2,9 +2,21 @@
     "manifest_version": 3,
     "name": "Focus Timer",
     "version": "1.0",
-    "description": "A simple Pomodoro-style focus timer.",
+    "description": "A simple Pomodoro-style focus timer with a cute tomato and clean design.",
     "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+        "16": "icons/tomato16.png",
+        "48": "icons/tomato48.png",
+        "128": "icons/tomato128.png"
+    }
     },
-    "permissions": []
+    "icons": {
+    "16": "icons/tomato16.png",
+    "48": "icons/tomato48.png",
+    "128": "icons/tomato128.png"
+    },
+    "permissions": [],
+    "host_permissions": []
 }
+  
