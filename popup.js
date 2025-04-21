@@ -8,6 +8,8 @@ const alarmLoop = new Audio("sounds/alarm-loop.mp3");
 alarmLoop.loop = true;
 alarmLoop.volume = 1;
 
+let isCountdownInProgress = false;
+
 function updateTimerDisplay(timeLeft) {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = String(timeLeft % 60).padStart(2, "0");
@@ -18,9 +20,13 @@ function pollTimeLeft() {
     setInterval(() => {
         chrome.runtime.sendMessage({ type: "GET_TIME_LEFT" }, (response) => {
             if (response && typeof response.timeLeft === "number") {
-                updateTimerDisplay(response.timeLeft);
+                const { timeLeft, timerState } = response;
 
-                if (response.timerState === "finished") {
+                if (timerState === "running") {
+                    updateTimerDisplay(timeLeft);
+                    isCountdownInProgress = true;
+                } else if (timerState === "finished") {
+                    updateTimerDisplay(0);
                     isCountdownInProgress = false;
                 }
             }
@@ -32,7 +38,6 @@ modeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
 });
 
-let isCountdownInProgress = false;
 
 start.addEventListener("click", () => {
     if(!isCountdownInProgress) {
@@ -62,19 +67,30 @@ reset.addEventListener("click", () => {
     isCountdownInProgress = false;
 });
 
-chrome.runtime.sendMessage ({ type: "GET_TIME_LEFT" }, (response) => {
-    console.log("GET_TIME_LEFT response:", response);
-    if (response && typeof response.timeLeft === "number") {
-        if (response.timerState === "running") {
-            updateTimerDisplay(response.timeLeft);
+chrome.runtime.sendMessage({ type: "GET_TIME_LEFT" }, (response) => {
+
+    if(!response || response.timeLeft === undefined || response.timerState === undefined) {
+        updateTimerDisplay(1500);
+        isCountdownInProgress = false;
+        return;
+    }
+
+    const { timeLeft, timerState } = response;
+
+    switch (timerState) {
+        case "running":
+            updateTimerDisplay(timeLeft);
             isCountdownInProgress = true;
-        } else if (response.timerState === "finished") {
+            break;
+        case "finished":
             updateTimerDisplay(0);
             isCountdownInProgress = false;
-        } else {
+            break;
+        case "not_started":
+        default:
             updateTimerDisplay(1500);
             isCountdownInProgress = false;
-        }
+            break;
     }
 });
 

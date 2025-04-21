@@ -1,6 +1,6 @@
 let timerInterval = null;
 let endTime = null;
-let timerState = "idle";
+let timerState = "not_started";
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "START_TIMER") {
@@ -30,7 +30,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ timeLeft, timerState });
         return true;
     } else if (message.type === "GET_TIME_LEFT") {
-        console.log("Sending timeLeft from background:", timeLeft, "State:", timerState);
         const timeLeft = endTime ? Math.max(0, Math.floor((endTime - Date.now()) / 1000)) : 0;
         sendResponse({ timeLeft, timerState });
         return true;
