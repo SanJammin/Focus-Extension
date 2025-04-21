@@ -21,7 +21,7 @@
     "web_accessible_resources": [
         {
             "resources": ["sounds/alarm-loop.mp3"],
-            "matches": ["<all_urls"]
+            "matches": ["<all_urls>"]
         }
     ]
 }
