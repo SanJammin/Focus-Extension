@@ -63,6 +63,7 @@ reset.addEventListener("click", () => {
 });
 
 chrome.runtime.sendMessage ({ type: "GET_TIME_LEFT" }, (response) => {
+    console.log("GET_TIME_LEFT response:", response);
     if (response && typeof response.timeLeft === "number") {
         if (response.timerState === "running") {
             updateTimerDisplay(response.timeLeft);
