@@ -8,6 +8,18 @@ const alarmLoop = new Audio("sounds/alarm-loop.mp3");
 alarmLoop.loop = true;
 alarmLoop.volume = 1;
 
+function pollTimeLeft() {
+    setInterval(() => {
+        chrome.runtime.sendMessage({ type: "GET_TIME_LEFT" }, (response) => {
+            if (response && typeof response.timeLeft === "number") {
+                const minutes = Math.floor(response.timeLeft / 60);
+                const seconds = String(response.timeLeft % 60).padStart(2, "0");
+                timer.textContent = `${minutes}:${seconds}`;
+            }
+        });
+    }, 1000);
+};
+
 modeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
 });
@@ -37,3 +49,5 @@ reset.addEventListener("click", () => {
     timer.textContent = "25:00"
     isCountdownInProgress = false;
 });
+
+pollTimeLeft();

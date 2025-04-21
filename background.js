@@ -20,5 +20,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 console.log("Time left: ", timeLeft, "s");
             }
         }, 1000);
+    } else if (message.type === "GET_TIME_LEFT") {
+        const timeLeft = endTime ? Math.max(0, Math.floor((endTime - Date.now()) / 1000)) : 0;
+        sendResponse({ timeLeft });
+        return true;
     }
 });
