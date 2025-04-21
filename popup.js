@@ -36,6 +36,8 @@ let isCountdownInProgress = false;
 
 start.addEventListener("click", () => {
     if(!isCountdownInProgress) {
+        updateTimerDisplay(1500);
+        
         chrome.runtime.sendMessage({
             type: "START_TIMER",
             duration: 1500
