@@ -23,6 +23,10 @@
             "resources": ["sounds/alarm-loop.mp3"],
             "matches": ["<all_urls>"]
         }
-    ]
+    ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    }
 }
   
