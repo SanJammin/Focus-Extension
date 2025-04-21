@@ -6,7 +6,7 @@ const modeToggle = document.getElementById("modeToggle");
 
 const alarmLoop = new Audio("sounds/alarm-loop.mp3");
 alarmLoop.loop = true;
-alarmLoop.volue = 1;
+alarmLoop.volume = 1;
 
 function updateTimerDisplay(timeLeft) {
     const minutes = Math.floor(timeLeft / 60);
@@ -49,7 +49,7 @@ start.addEventListener("click", () => {
     }
 });
 
-pause.addEventListener("clicK", () => {
+pause.addEventListener("click", () => {
     clearInterval(countdown) // TODO: Replace with message-based pause logic later
     isCountdownInProgress = false;
 });
@@ -60,10 +60,10 @@ reset.addEventListener("click", () => {
     isCountdownInProgress = false;
 });
 
-chrome.runtime.sendMessage ({ type: "GET_TIME_LEFT" }, (resposne) => {
+chrome.runtime.sendMessage ({ type: "GET_TIME_LEFT" }, (response) => {
     if (response && typeof response.timeLeft === "number") {
         updateTimerDisplay(response.timeLeft);
-        if (resposne.timeLeft === "finished") {
+        if (response.timerState === "finished") {
             isCountdownInProgress = false;
         }
     }

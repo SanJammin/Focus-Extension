@@ -3,7 +3,7 @@ let endTime = null;
 let timerState = "idle";
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === "START_TIME") {
+    if (message.type === "START_TIMER") {
         const duration = message.duration;
         endTime = Date.now() + duration * 1000;
         timerState = "running";
