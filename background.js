@@ -56,6 +56,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ timeLeft: timeLeftWhenPaused, timerState });
         return true;
 
+    } else if (message.type === "RESET_TIMER") {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        endTime = null;
+        timeLeftWhenPaused = null;
+        timerState = "not_started";
+
+        sendResponse({ timeLeft: 1500, timerState });
+        return true;
+        
     } else if (message.type === "GET_TIME_LEFT") {
         const timeLeft = timerState === "paused"
             ? timeLeftWhenPaused

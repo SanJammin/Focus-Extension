@@ -78,9 +78,16 @@ pause.addEventListener("click", () => {
 });
 
 reset.addEventListener("click", () => {
-    clearInterval(countdown); //TODO: Replace with message-based reset logic later
-    updateTimerDisplay(1500);
-    isCountdownInProgress = false;
+    chrome.runtime.sendMessage({ type: "RESET_TIMER" }, (response) => {
+        if (response && typeof response.timeLeft === "number") {
+            updateTimerDisplay(response.timeLeft);
+            isCountdownInProgress = false;
+            isPaused = false;
+            pause.textContent = "⏸";
+            alarmLoop.pause();
+            alarmLoop.currentTime = 0;
+        }
+    });
 });
 
 chrome.runtime.sendMessage({ type: "GET_TIME_LEFT" }, (response) => {
