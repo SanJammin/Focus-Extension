@@ -3,6 +3,7 @@ const start = document.getElementById("start");
 const pause = document.getElementById("pause");
 const reset = document.getElementById("reset");
 const modeToggle = document.getElementById("modeToggle");
+const FOCUS_DURATION = 1500;
 
 const alarmLoop = new Audio("sounds/alarm-loop.mp3");
 alarmLoop.loop = true;
@@ -10,6 +11,7 @@ alarmLoop.volume = 1;
 
 let isCountdownInProgress = false;
 let isPaused = false;
+let pollInterval;
 
 function updateTimerDisplay(timeLeft) {
     const minutes = Math.floor(timeLeft / 60);
@@ -18,7 +20,9 @@ function updateTimerDisplay(timeLeft) {
 }
 
 function pollTimeLeft() {
-    setInterval(() => {
+if (pollInterval) clearInterval(pollInterval)
+
+    pollInterval = setInterval(() => {
         chrome.runtime.sendMessage({ type: "GET_TIME_LEFT" }, (response) => {
             if (response && typeof response.timeLeft === "number") {
                 const { timeLeft, timerState } = response;
@@ -42,11 +46,11 @@ modeToggle.addEventListener("click", () => {
 
 start.addEventListener("click", () => {
     if(!isCountdownInProgress) {
-        updateTimerDisplay(1500);
+        updateTimerDisplay(FOCUS_DURATION);
 
         chrome.runtime.sendMessage({
             type: "START_TIMER",
-            duration: 1500
+            duration: FOCUS_DURATION
         }, (response) => {
             if (response && typeof response.timeLeft === "number") {
                 updateTimerDisplay(response.timeLeft);
@@ -93,7 +97,7 @@ reset.addEventListener("click", () => {
 chrome.runtime.sendMessage({ type: "GET_TIME_LEFT" }, (response) => {
 
     if(!response || response.timeLeft === undefined || response.timerState === undefined) {
-        updateTimerDisplay(1500);
+        updateTimerDisplay(FOCUS_DURATION);
         isCountdownInProgress = false;
         return;
     }
@@ -111,7 +115,7 @@ chrome.runtime.sendMessage({ type: "GET_TIME_LEFT" }, (response) => {
             break;
         case "not_started":
         default:
-            updateTimerDisplay(1500);
+            updateTimerDisplay(FOCUS_DURATION);
             isCountdownInProgress = false;
             break;
     }
