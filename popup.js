@@ -3,13 +3,17 @@ const start = document.getElementById("start");
 const pause = document.getElementById("pause");
 const reset = document.getElementById("reset");
 const modeToggle = document.getElementById("modeToggle");
+const alarmLoop = new Audio("sounds/alarm-loop.mp3");
+
+alarmLoop.loop = true;
+alarmLoop.volume = 1;
 
 modeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
 });
 
 let isCountdownInProgress = false;
-let count = 1500;
+let count = 15; //Should be 1500 but for testing purposes
 let countdown;
 
 start.addEventListener("click", () => {
@@ -29,6 +33,8 @@ start.addEventListener("click", () => {
                 count = 1500;
                 timer.textContent = "25:00"
                 isCountdownInProgress = false;
+
+                alarmLoop.play();
             }
         },1000);
 

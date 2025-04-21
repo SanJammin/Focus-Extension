@@ -17,6 +17,12 @@
     "128": "icons/tomato128.png"
     },
     "permissions": [],
-    "host_permissions": []
+    "host_permissions": [],
+    "web_accessible_resources": [
+        {
+            "resources": ["sounds/alarm-loop.mp3"],
+            "matches": ["<all_urls"]
+        }
+    ]
 }
   
