@@ -9,6 +9,7 @@ alarmLoop.loop = true;
 alarmLoop.volume = 1;
 
 let isCountdownInProgress = false;
+let isPaused = false;
 
 function updateTimerDisplay(timeLeft) {
     const minutes = Math.floor(timeLeft / 60);
@@ -57,8 +58,23 @@ start.addEventListener("click", () => {
 });
 
 pause.addEventListener("click", () => {
-    clearInterval(countdown) // TODO: Replace with message-based pause logic later
-    isCountdownInProgress = false;
+    if (!isPaused) {
+        chrome.runtime.sendMessage({ type: "PAUSE_TIMER"}, (response) => {
+            if (response && typeof response.timeLeft === "number") {
+                updateTimerDisplay(response.timeLeft);
+                isPaused = true;
+                pause.textContent = "⏵";
+            }
+        });
+    } else {
+        chrome.runtime.sendMessage({ type: "RESUME_TIMER" }, (response) => {
+            if (response && typeof response.timeLeft === "number") {
+                updateTimerDisplay(response.timeLeft);
+                isPaused = false;
+                pause.textContent = "⏸";
+            }
+        });
+    }
 });
 
 reset.addEventListener("click", () => {
