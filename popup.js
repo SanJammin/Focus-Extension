@@ -37,7 +37,7 @@ let isCountdownInProgress = false;
 start.addEventListener("click", () => {
     if(!isCountdownInProgress) {
         updateTimerDisplay(1500);
-        
+
         chrome.runtime.sendMessage({
             type: "START_TIMER",
             duration: 1500
@@ -64,8 +64,14 @@ reset.addEventListener("click", () => {
 
 chrome.runtime.sendMessage ({ type: "GET_TIME_LEFT" }, (response) => {
     if (response && typeof response.timeLeft === "number") {
-        updateTimerDisplay(response.timeLeft);
-        if (response.timerState === "finished") {
+        if (response.timerState === "running") {
+            updateTimerDisplay(response.timeLeft);
+            isCountdownInProgress = true;
+        } else if (response.timerState === "finished") {
+            updateTimerDisplay(0);
+            isCountdownInProgress = false;
+        } else {
+            updateTimerDisplay(1500);
             isCountdownInProgress = false;
         }
     }
